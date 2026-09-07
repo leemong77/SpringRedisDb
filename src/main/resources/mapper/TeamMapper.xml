@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lim.redisdb.mapper.TeamMapper">
+
+    <select id="findById" parameterType="long" resultType="com.lim.redisdb.domain.Team">
+        SELECT id, name FROM team WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.lim.redisdb.domain.Team">
+        SELECT id, name FROM team ORDER BY id
+    </select>
+
+	<update id="update" parameterType="com.lim.redisdb.domain.Team">
+	    UPDATE team SET name = #{name} WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="long">
+	    DELETE FROM team WHERE id = #{id}
+	</delete>
+</mapper>

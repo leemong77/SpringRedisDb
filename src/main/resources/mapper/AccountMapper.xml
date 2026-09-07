@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lim.redisdb.mapper.AccountMapper">
+
+    <select id="findByToken" parameterType="string" resultType="com.lim.redisdb.domain.Account">
+        SELECT id, token, role FROM account WHERE token = #{token}
+    </select>
+
+</mapper>
