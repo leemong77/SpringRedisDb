@@ -16,7 +16,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("X-AUTH-TOKEN");
+        System.out.println("AuthInterceptor 여기 찌금!!!!");
+       
+    	String token = request.getHeader("X-AUTH-TOKEN");
 
         if (token == null || token.isBlank()) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 없습니다.");

@@ -1,6 +1,9 @@
 package com.lim.redisdb.config;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.logging.Logger;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,11 +21,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    	
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/teams/**").hasRole("ADMIN")
                 .anyRequest().permitAll() // 나머지는 기존 로직(팀 API 등)에 맡김
             )
             .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -30,7 +35,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint((req, res, e) -> res.sendError(401, "Unauthorized"))
                 .accessDeniedHandler((req, res, e) -> res.sendError(403, "Forbidden"))
             );
-
+    	 
         return http.build();
     }
 }
